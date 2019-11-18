@@ -18,7 +18,13 @@
     + Dịch vụ DHCP có nhiệm vụ cấp phát địa chỉ IP để các máy client có thể liên lạc với các máy khác và với TFTP server để lấy các file boot và file cấu hình cần thiết.
 	+ Dịch vụ TFTP cung cấp dịch vụ truyền các file boot và file cấu hình cần thiết cho Client.
 	
+- Ví dụ minh họa
+- ![]( /image/pxerun.png )
+	
+	
 ## 1.3.PXE workflow
+
+-- ![]( /image/pxeworkflow.png)
 
 - Workflow của PXE gồm những bước sau:	
 	
@@ -42,7 +48,7 @@
 
 - Các file Kickstart có thể được lưu trong một server riêng biệt (thường trong cùng PXE hoặc TFTP server), và có thể lấy được bởi bất kì máy tình nào trong suốt quá trình máy đó cài đặt. Phương pháp cài đặtnày hỗ trợ sử dụng một file Kickstart để cài đặt Ubuntu trên nhiều máy Client khác nhau, là phương pháp tuyệt với cho các nhà quản trị mạng và hệ thống cấu hình mô hình mạng theo ý muốn của mình.
 
-- Kickstart cho phép bạn cấu hình tự động các thông tin trong suốt quá trình cài đặt như:  
+- Kickstart cho phép bạn cấu hình tự động các thông tin trong suốt quá trình cài đặt như: 
 
   + Lựa chọn ngôn ngữ
   + Cấu hình cho mouse

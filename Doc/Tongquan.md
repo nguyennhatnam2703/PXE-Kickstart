@@ -54,7 +54,7 @@
   
 # Tham khảo:
 
-[1]: http://v0danh.blogspot.com/2011/10/khoi-ong-may-tinh-tu-pxe.html
+[1] http://v0danh.blogspot.com/2011/10/khoi-ong-may-tinh-tu-pxe.html
 
-[2]: https://github.com/hocchudong/thuctap012017/tree/master/TamNT/PXE-Kickstart-Cobblers  
+[2] https://github.com/hocchudong/thuctap012017/tree/master/TamNT/PXE-Kickstart-Cobblers  
   

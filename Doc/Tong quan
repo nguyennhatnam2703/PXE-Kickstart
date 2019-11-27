@@ -1,0 +1,60 @@
+# Tổng quan PXE và Kickstart
+
+# 1.PXE là gì
+
+## 1.1:Mục đích ra đời
+
+- Khi máy tính gặp sự cố không khởi động được, người ta thường nghĩ đến các đĩa CD/DVD hoặc USB có thể khởi động được để khắc phục sự cố, phục hồi dữ liệu. Có một giải pháp khá hiệu quả là xây dựng một PXE Server trên một máy tính khác trong cùng mạng LAN và trên máy gặp sự cố, sẽ khởi động bằng card mạng và truy cập vào PXE Server để sử dụng các chương trình được cài sẵn trên đó. Bài viết này sẽ hướng dẫn cách thức xây dựng một PXE Server với nhiều lựa chọn khi khởi động để hỗ trợ người quản trị khắc phục các máy tính khi gặp sự cố.
+
+## 1.2.Giới thiệu
+
+- Preboot eXecution Environment - PXE là một chuẩn công nghiệp mở được phát triển bởi một số các nhà sản xuất phần mềm và phần cứng. Được thiết kế ban đầu bởi Intel, cùng với sự tham gia của các nhà sản xuất như HP, 3Com, Dell, Compaq, and Phoenix Technologies.
+
+- PXE là một môi trường cho phép khởi động máy tính bằng việc sử dụng card mạng cùng với RAM. Việc khởi động đó sẽ không phụ thuộc vào những thiết bị của máy tính như CD, harddisk và các hệ điều hành đã được cài đặt.
+
+- PXE bao gồm 2 thành phần: PXE Client và PXE Server:
+  + Thành phần PXE Client (PXE boot code) nằm trên card mạng.
+  + PXE Server là phần mềm chạy trên một máy tính nào đó trong mạng LAN. Phần mềm này hỗ trợ các giao thức TFTP, DHCP.Trong đó
+    + Dịch vụ DHCP có nhiệm vụ cấp phát địa chỉ IP để các máy client có thể liên lạc với các máy khác và với TFTP server để lấy các file boot và file cấu hình cần thiết.
+	+ Dịch vụ TFTP cung cấp dịch vụ truyền các file boot và file cấu hình cần thiết cho Client.
+	
+## 1.3.PXE workflow
+
+- Workflow của PXE gồm những bước sau:	
+	
+  + 1.Máy client được khởi động (bật nguồn). NIC của client gửi đi bản tin broadcast để tìm DHCP server.
+  
+  + 2.DHCP server nhận được bản tin của client và gửi lại các thông tin cần thiết cho client (IP, subnet mask, gateway, DNS ...). Và cung cấp cho client thông tin về vị trí của TFTP server và boot image (pxelinux.0 - đây là file chứa các mã lệnh để cho biết loại kernel mà hệ thống sẽ boot).
+
+  + 3.Khi client nhận được các thông tin này, nó sẽ liên lạc với TFTP server để lấy boot image.
+  
+  + 4.TFTP server gửi lại boot image (pxelinux.0), và client sẽ sử lý nó.
+  
+  + 5.Mặc định, boot image tìm được thư mục pxelinux.cfg trên TFTP server để lấy các file cấu hình. 
+  
+  + 6,7,8:Client doownload tất cả các file cần thiết (filesystem, kickstart, ...) và tải về.
+
+- Cuối cùng, Client install và reboot.
+
+# 2.Kickstart là gì
+
+- Kickstart file : đây là thành phần quan trọng nhất, kickstart file là file chứa tất cả những câu trả lời cần thiết cho việc cài đặt các distro Linux nhờ vào file trả lời này mà toàn bộ quá trình cài đặt sẽ được tự hóa hoàn toàn.
+
+- Các file Kickstart có thể được lưu trong một server riêng biệt (thường trong cùng PXE hoặc TFTP server), và có thể lấy được bởi bất kì máy tình nào trong suốt quá trình máy đó cài đặt. Phương pháp cài đặtnày hỗ trợ sử dụng một file Kickstart để cài đặt Ubuntu trên nhiều máy Client khác nhau, là phương pháp tuyệt với cho các nhà quản trị mạng và hệ thống cấu hình mô hình mạng theo ý muốn của mình.
+
+- Kickstart cho phép bạn cấu hình tự động các thông tin trong suốt quá trình cài đặt như:  
+
+  + Lựa chọn ngôn ngữ
+  + Cấu hình cho mouse
+  + Cấu hình keyboard
+  + Cài đặt boot loader
+  + Phân vùng ổ cứng.
+  + Cấu hình mạng
+  +......
+  
+# Tham khảo:
+
+[1]: http://v0danh.blogspot.com/2011/10/khoi-ong-may-tinh-tu-pxe.html
+
+[2]: https://github.com/hocchudong/thuctap012017/tree/master/TamNT/PXE-Kickstart-Cobblers  
+  
